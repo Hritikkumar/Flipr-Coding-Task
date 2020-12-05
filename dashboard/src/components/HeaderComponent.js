@@ -40,10 +40,12 @@ class Header extends Component{
                                 <NavItem>
                                     <NavLink className="nav-link text-dark" to="">Transporters</NavLink>
                                 </NavItem>
-                                
+                                <NavItem>
+                                    <NavLink className="nav-link bg-light rounded-circle shadow-sm" to=""><img src="/assets/images/profile.svg" width="20" alt="Profile" /></NavLink>
+                                </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
-                                        <img src="/assets/images/profile.svg" width="20" alt="Profile" />
+                                        
                                     </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem>

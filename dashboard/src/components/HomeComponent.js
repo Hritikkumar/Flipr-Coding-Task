@@ -4,8 +4,8 @@ import {Table, CardBody, Card, CardTitle, CardText} from 'reactstrap';
 function RenderCard({shipmentstate}){
     return(
         <Card>
-            <CardBody className="bg-primary text-light">
-                <CardTitle>OOD</CardTitle>
+            <CardBody className="bg-primary text-light rounded-lg">
+                <CardTitle className="text-left pt-0">OOD</CardTitle>
                 <CardText>450</CardText>
             </CardBody>
         </Card>
@@ -25,6 +25,7 @@ class Home extends Component{
         this.state={};
     };
     render(){
+        
         return(
             <div className="container mt-5">
                 <div className="row align-items-start w-50 mx-auto">
