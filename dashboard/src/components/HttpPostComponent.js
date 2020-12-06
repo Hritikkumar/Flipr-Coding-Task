@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button, Card} from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button} from 'reactstrap';
 import axios from 'axios';
 import Home from './HomeComponent';
-import {Redirect} from 'react-router-dom';
 import ShipmentDetails from './ShipmentDetailsComponent';
 import TimeLine from './TimelineComponent';
 import '../index.css';
@@ -30,6 +29,7 @@ class HttpPost extends Component{
       }
     
     onSelectRow(shipmentRow){
+        console.log(shipmentRow);
         this.setState({ shipmentRow: shipmentRow});
     }
 
@@ -71,41 +71,42 @@ class HttpPost extends Component{
     render(){
         if(this.state.isLoaded){
             return(
-                <div className="container mt-5">
-                    <div className="row align-items-start w-75 mx-auto">
+                <div className="container-fluid mt-5">
+                    <div className="row align-items-start w-75 mx-auto text-center">
                         <Home shipments={this.state.Shipments} 
                         onClick={(shipmentStatus) => this.onShipmentSelect(shipmentStatus)} />
                     </div>
                     <div className="row align-items-start">
-                        <div className="left-col col-12 col-md-4 mt-4 mb-4 ml-4">
-                            <TimeLine shipmentRow = {this.state.Shipments.filter((shipmentRow) => shipmentRow._id === this.state.selectedShipmentRow)[0]} />
+                        <div className="col-12 col-md-4 col-lg-4 mt-5 p-4 mx-auto border border-secondary rounded">
+                            <TimeLine shipmentRow = {this.state.Shipments.filter((shipmentRow) => shipmentRow._id === this.state.shipmentRow)[0]} />
                         </div>
-                        <div className="col-12 col-md-7 col-lg-8 mt-5 ml-auto shadow">
+                        <div className="col-12 col-md-8 col-lg-7 mt-5 p-4 ml-auto border border-secondary rounded">
                             <ShipmentDetails shipments={this.state.Shipments.filter((shipment) => shipment.current_status_code === this.state.selectedShipment)}
                             onClick={(shipmentRow) => this.onSelectRow(shipmentRow)} />
                         </div>
                     </div>
                 </div>
             )
-        }
-        if(this.state.selectedShipment){
-            console.log(this.state.selectedShipment)
-        }      
+        }  
         return(
-            <div className="container mt-5">
-                <Form onSubmit={this.submitHandler}>
-                    <FormGroup>
-                        <Label htmlFor="token">Bearer Token</Label>
-                        <Input type="text" id="token" name="token" innerRef={(input) => this.token = input} 
-                        onChange={this.changeHandler} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label htmlFor="email">Email</Label>
-                        <Input type="email" id="email" name="email" innerRef={(input) => this.email = input}
-                        onChange={this.changeHandler}  />
-                    </FormGroup>
-                    <Button type="submit" value="submit" color="primary">Track</Button>
-                </Form>
+            <div className="container mt-5 ">
+                <div className="row">
+                    <div className="col col-md-8 mx-auto border border-secondary p-5 rounded-lg">
+                        <Form onSubmit={this.submitHandler}>
+                            <FormGroup>
+                                <Label htmlFor="token">Bearer Token</Label>
+                                <Input type="text" id="token" name="token" innerRef={(input) => this.token = input} 
+                                onChange={this.changeHandler} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="email">Email</Label>
+                                <Input type="email" id="email" name="email" innerRef={(input) => this.email = input}
+                                onChange={this.changeHandler}  />
+                            </FormGroup>
+                            <Button type="submit" value="submit" color="primary">Track</Button>
+                        </Form>
+                    </div>
+                </div>
             </div>
             
         );

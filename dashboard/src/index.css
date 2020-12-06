@@ -1,10 +1,12 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: aqua;
 }
 
-.table-scroll{
-  display: block;
-  max-height: 300px;
-  overflow-y: scroll;
+.table-responsive{
+  font-size: .6rem;
+  max-height: 350px;
+}
+
+.tableRow{
+  border: rgb(189, 188, 188) solid .1px !important;
 }
