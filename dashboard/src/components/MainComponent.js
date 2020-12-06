@@ -2,24 +2,35 @@ import React, {Component} from 'react';
 import Header from './HeaderComponent';
 import Home from './HomeComponent';
 import HttpPost from './HttpPostComponent';
+import axios from 'axios';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 class Main extends Component{
 	constructor(props){
 		super(props);
-		// this.state={
-		// 	data:[],
-		// 	isLoaded:false,
-		// 	name:'',
-		// }
-    }
-
-	componentDidMount(){
-
+		this.state={
+			shipments:[],
+		}
+	}
+	
+	componentWillMount(){
+		const token='​tTU3gFVUdP';
+        const body={
+			email:"mayankmittal@intugine.com",
+		}
+		const email=body.email;
+        const headers={ 'Authorization':`Bearer ${token}` };
+        axios.post('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email: email},{headers})
+        .then(response => {
+			console.log(response);
+        })
+        .catch(error=> {
+            console.log(error);
+        })
 	}
 
 	render(){
-		const Post=()=>{
+		const PostPage=()=>{
 			return(
 				<HttpPost />
 			);
@@ -29,29 +40,56 @@ class Main extends Component{
 				<Home />
 			);
 		};
-		// if(!isLoaded){
-			return (
-				<div>
-					<Header />
-					<Switch>
-						<Route path="/home" component={HomePage} />
-						<Route path="/post" component={Post} />
-						{/* <Route exact path="/menu" component={()=> <Menu dishes={this.state.dishes}/>}/>
-						<Route path="/menu/:dishId" component={DishWithId} /> */}
-						<Redirect to="/post"  />
-					</Switch>
-					{/* <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
-					<DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> */}
-				</div>
-			);
-		// }
-		// else{
-		// 	return(
-		// 		<div>
-		// 			Data is loaded!
-		// 		</div>
-		// 	);
-		// }
-	};
+		return(
+			<div>
+				<Header/>
+				<HttpPost/>
+				<Switch>
+					<Route path="/home" Component={HomePage}/>
+					<Route path="/post" Component={PostPage}/>
+					<Redirect to="/post"/>
+				</Switch>
+			</div>
+		)
+	}
 }
+
 export default Main;
+
+// function Main(){
+// 	const url='https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch'
+// 	const [shipments]= useState([])
+
+// 	let content = null
+
+// 	useEffect(() => {
+// 			const token='​tTU3gFVUdP';
+// 			const email='mayankmittal@intugine.com';
+// 			const headers={ 'Authorization':`Bearer ${token}` };
+// 			// axios.post('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email: email},{headers})
+// 			// .then(response 
+// 			const requestOptions = {
+// 				method: 'POST',
+// 			};
+// 			fetch('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email:email},{headers}, requestOptions).then(response => {
+// 				console.log(response);
+// 			})
+// 			.catch(error=> {
+// 				console.log(error);
+// 			})
+// 	},[url])
+
+// 	if(shipments){
+// 		return(
+// 			<div>
+// 				<Header/>
+// 				<Home shipments={shipments}/>
+// 			</div>
+// 		);
+// 	}
+// 	return(
+// 		<div>
+// 			{content}
+// 		</div>
+// 	);
+// }

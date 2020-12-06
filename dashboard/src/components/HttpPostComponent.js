@@ -13,8 +13,11 @@ class HttpPost extends Component{
             body:{
                 email:''
             },
-            // username:''
+            isLoaded:false,
+            shipments:[]
         };
+        this.changeHandler=this.changeHandler.bind(this);
+        this.submitHandler=this.submitHandler.bind(this);
     }
 
     changeHandler = (event) =>{
@@ -34,19 +37,19 @@ class HttpPost extends Component{
     }
 
     submitHandler = (event) =>{
-        // console.log(this.state);
+        console.log(this.state);
+        // const token='​tTU3gFVUdP';
+        // const email="mayankmittal@intugine.com"
         const token=this.state.token;
         const email=this.state.body.email;
         const headers={ 'Authorization':`Bearer ${token}` };
         axios.post('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email: email},{headers})
         .then(response => {
-            console.log(this.state);
-            <Redirect
-            to={{
-            pathname: "/home",
-            state: { shipmentDetail: response }
-          }}
-        />
+            console.log(response);
+            this.setState({
+                shipments:response.data,
+                isLoaded:true
+            })
         })
         .catch(error=> {
             console.log(error);
@@ -55,24 +58,40 @@ class HttpPost extends Component{
     }
 
     render(){
+        if(this.state.isLoaded){
+            return(
+                <div className="container mt-5">
+                    <div className="row align-items-start w-75 mx-auto">
+                        <Home shipments={this.state.shipments} />
+                    </div>
+                </div>
+            )
+        }       
         return(
             <div className="container mt-5">
                 <Form onSubmit={this.submitHandler}>
-                <FormGroup>
-                    <Label htmlFor="token">Bearer Token</Label>
-                    <Input type="text" id="token" name="token" innerRef={(input) => this.token = input} 
-                    onChange={this.changeHandler} />
-                </FormGroup>
-                <FormGroup>
-                    <Label htmlFor="email">Email</Label>
-                    <Input type="email" id="email" name="email" innerRef={(input) => this.email = input}
-                    onChange={this.changeHandler}  />
-                </FormGroup>
-                <Button type="submit" value="submit" color="primary">Track</Button>
-            </Form>
+                    <FormGroup>
+                        <Label htmlFor="token">Bearer Token</Label>
+                        <Input type="text" id="token" name="token" innerRef={(input) => this.token = input} 
+                        onChange={this.changeHandler} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="email">Email</Label>
+                        <Input type="email" id="email" name="email" innerRef={(input) => this.email = input}
+                        onChange={this.changeHandler}  />
+                    </FormGroup>
+                    <Button type="submit" value="submit" color="primary">Track</Button>
+                </Form>
             </div>
+            
         );
+
     }
 }
 
 export default HttpPost;
+// if(this.state.isLoaded == true){
+        //     return(
+        //         <Home data={this.state.data}/>
+        //     );
+        // }else
