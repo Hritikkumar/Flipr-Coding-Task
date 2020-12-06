@@ -13,21 +13,21 @@ class Main extends Component{
 		}
 	}
 	
-	componentWillMount(){
-		const token='​tTU3gFVUdP';
-        const body={
-			email:"mayankmittal@intugine.com",
-		}
-		const email=body.email;
-        const headers={ 'Authorization':`Bearer ${token}` };
-        axios.post('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email: email},{headers})
-        .then(response => {
-			console.log(response);
-        })
-        .catch(error=> {
-            console.log(error);
-        })
-	}
+	// componentWillMount(){
+	// 	const token='​tTU3gFVUdP';
+    //     const body={
+	// 		email:"mayankmittal@intugine.com",
+	// 	}
+	// 	const email=body.email;
+    //     const headers={ 'Authorization':`Bearer ${token}` };
+    //     axios.post('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email: email},{headers})
+    //     .then(response => {
+	// 		console.log(response);
+    //     })
+    //     .catch(error=> {
+    //         console.log(error);
+    //     })
+	// }
 
 	render(){
 		const PostPage=()=>{

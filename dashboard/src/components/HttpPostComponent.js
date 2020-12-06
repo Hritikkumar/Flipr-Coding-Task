@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Card} from 'reactstrap';
 import axios from 'axios';
 import Home from './HomeComponent';
 import {Redirect} from 'react-router-dom';
-
+import ShipmentDetails from './ShipmentDetailsComponent';
+import TimeLine from './TimelineComponent';
+import '../index.css';
 class HttpPost extends Component{
 
     constructor(props){
         super(props);
         this.state={
             token:'',
+            Shipments:[],
             body:{
-                email:''
+                email:'',
             },
             isLoaded:false,
-            shipments:[]
+            selectedShipment:'DEL',
+            shipmentRow:'5d309ea2048c0a3321692de8',
         };
         this.changeHandler=this.changeHandler.bind(this);
         this.submitHandler=this.submitHandler.bind(this);
+    }
+
+    onShipmentSelect(shipmentStatus) {
+        console.log(shipmentStatus);
+        this.setState({ selectedShipment: shipmentStatus});
+      }
+    
+    onSelectRow(shipmentRow){
+        this.setState({ shipmentRow: shipmentRow});
     }
 
     changeHandler = (event) =>{
@@ -44,13 +57,11 @@ class HttpPost extends Component{
         const email=this.state.body.email;
         const headers={ 'Authorization':`Bearer ${token}` };
         axios.post('https://f0ztti2nsk.execute-api.ap-south-1.amazonaws.com/v1/consignment/fetch',{email: email},{headers})
-        .then(response => {
-            console.log(response);
+        .then(res => 
             this.setState({
-                shipments:response.data,
+                Shipments:res.data,
                 isLoaded:true
-            })
-        })
+            }))
         .catch(error=> {
             console.log(error);
         })
@@ -62,11 +73,24 @@ class HttpPost extends Component{
             return(
                 <div className="container mt-5">
                     <div className="row align-items-start w-75 mx-auto">
-                        <Home shipments={this.state.shipments} />
+                        <Home shipments={this.state.Shipments} 
+                        onClick={(shipmentStatus) => this.onShipmentSelect(shipmentStatus)} />
+                    </div>
+                    <div className="row align-items-start">
+                        <div className="left-col col-12 col-md-4 mt-4 mb-4 ml-4">
+                            <TimeLine shipmentRow = {this.state.Shipments.filter((shipmentRow) => shipmentRow._id === this.state.selectedShipmentRow)[0]} />
+                        </div>
+                        <div className="col-12 col-md-7 col-lg-8 mt-5 ml-auto shadow">
+                            <ShipmentDetails shipments={this.state.Shipments.filter((shipment) => shipment.current_status_code === this.state.selectedShipment)}
+                            onClick={(shipmentRow) => this.onSelectRow(shipmentRow)} />
+                        </div>
                     </div>
                 </div>
             )
-        }       
+        }
+        if(this.state.selectedShipment){
+            console.log(this.state.selectedShipment)
+        }      
         return(
             <div className="container mt-5">
                 <Form onSubmit={this.submitHandler}>
