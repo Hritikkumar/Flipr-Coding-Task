@@ -4,7 +4,7 @@ import axios from 'axios';
 import Home from './HomeComponent';
 import ShipmentDetails from './ShipmentDetailsComponent';
 import TimeLine from './TimelineComponent';
-import '../index.css';
+
 class HttpPost extends Component{
 
     constructor(props){
@@ -71,16 +71,16 @@ class HttpPost extends Component{
     render(){
         if(this.state.isLoaded){
             return(
-                <div className="container-fluid mt-5">
-                    <div className="row align-items-start w-75 mx-auto text-center">
+                <div className="container-fluid mt-5 mb-5">
+                    <div className="row mx-auto shipment-count text-center">
                         <Home shipments={this.state.Shipments} 
-                        onClick={(shipmentStatus) => this.onShipmentSelect(shipmentStatus)} />
+                        onClick={(shipmentStatus) => this.onShipmentSelect(shipmentStatus)} clickedShipment={this.state.selectedShipment}/>
                     </div>
-                    <div className="row align-items-start">
-                        <div className="col-12 col-md-4 col-lg-4 mt-5 p-4 mx-auto border border-secondary rounded">
+                    <div className="row">
+                        <div className="col-12 col-md-4 col-lg-4 mt-5 p-4 light-border mx-auto rounded">
                             <TimeLine shipmentRow = {this.state.Shipments.filter((shipmentRow) => shipmentRow._id === this.state.shipmentRow)[0]} />
                         </div>
-                        <div className="col-12 col-md-8 col-lg-7 mt-5 p-4 ml-auto border border-secondary rounded">
+                        <div className="col-12 col-md-8 col-lg-7 mt-5 w-100 ml-auto light-border rounded">
                             <ShipmentDetails shipments={this.state.Shipments.filter((shipment) => shipment.current_status_code === this.state.selectedShipment)}
                             onClick={(shipmentRow) => this.onSelectRow(shipmentRow)} />
                         </div>
@@ -91,7 +91,7 @@ class HttpPost extends Component{
         return(
             <div className="container mt-5 ">
                 <div className="row">
-                    <div className="col col-md-8 mx-auto border border-secondary p-5 rounded-lg">
+                    <div className="col col-md-6 mx-auto border border-secondary p-5 rounded-lg">
                         <Form onSubmit={this.submitHandler}>
                             <FormGroup>
                                 <Label htmlFor="token">Bearer Token</Label>
@@ -103,7 +103,7 @@ class HttpPost extends Component{
                                 <Input type="email" id="email" name="email" innerRef={(input) => this.email = input}
                                 onChange={this.changeHandler}  />
                             </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Track</Button>
+                            <Button type="submit" value="submit" className="bg-blue">Submit</Button>
                         </Form>
                     </div>
                 </div>

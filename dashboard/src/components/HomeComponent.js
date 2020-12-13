@@ -1,23 +1,28 @@
 import React from 'react';
 import { CardBody, Card, CardTitle, CardText} from 'reactstrap';
-import '../index.css';
 
-function RenderStatus({counterValue,counterName, onClick}){
-    return(
-        <Card onClick={() => onClick(counterName)}>
-            <CardBody className="bg-primary text-light rounded-lg">
-                <CardTitle className="text-left h6">{counterName}</CardTitle>
-                <CardText className="h2 text-right">{counterValue}</CardText>
-            </CardBody>
-        </Card>
-    );
+function RenderStatus({clickedShipment, counterValue,counterName, onClick}){
+    if(clickedShipment===counterName){
+        return(
+            <Card onClick={() => onClick(counterName)}>
+                <CardBody className="bg-blue rounded-lg card-padding">
+                    <CardTitle className="text-left h6 font-weight-bold">{counterName}</CardTitle>
+                    <CardText className="h1 text-right">{counterValue}</CardText>
+                </CardBody>
+            </Card>
+        );
+    }else{
+        return(
+            <Card onClick={() => onClick(counterName)}>
+                <CardBody className="bg-light-blue rounded-lg card-padding">
+                    <CardTitle className="text-left h6 font-weight-bold">{counterName}</CardTitle>
+                    <CardText className="h1 text-right">{counterValue}</CardText>
+                </CardBody>
+            </Card>
+        );
+    }
 }
 
-// function TimelineView(){
-//     return(
-//         <div></div>
-//     );
-// }
 
 const Home = (props) => {
     var res = {};
@@ -28,8 +33,8 @@ const Home = (props) => {
     return(
         Object.entries(res).map((key, i) => {
             return (
-                <div className="col-12 col-md col-lg-2"key={i}>
-                <RenderStatus counterValue={res[key[0]]} counterName={key[0]} onClick={props.onClick} />
+                <div className="col-12 col-md"key={i}>
+                <RenderStatus clickedShipment={props.clickedShipment} counterValue={res[key[0]]} counterName={key[0]} onClick={props.onClick} />
                 </div>
             );
         })

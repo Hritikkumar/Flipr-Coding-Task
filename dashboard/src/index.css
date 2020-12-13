@@ -1,12 +1,73 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-family: 'Quicksand', sans-serif !important; */
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .table-responsive{
   font-size: .6rem;
-  max-height: 350px;
+  max-height: 500px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  color: #2e5bff !important;
+}
+
+.link{
+  color: #3fb6dc;
+  /* text-shadow: 2px 2px 5px aqua; */
+}
+
+.link-circle{
+  color: #3fb6dc;
+  text-shadow: 0px 0px 3px aqua;
 }
 
 .tableRow{
-  border: rgb(189, 188, 188) solid .1px !important;
+  border: lightgray  solid .1px !important;
+
+  /* padding-left: 10em !important; */
 }
+
+.light-border{
+  border: lightgray  solid .1px;
+}
+/* .table-borderless td, .table-borderless th, .table-borderless thead th {
+  border:antiquewhite;
+  padding: 1.5%;
+  width: 5%;
+}
+
+td {
+  text-align: center;
+  padding: 16px;
+} */
+.table{
+  width: auto !important;
+}
+.nav-link .active{
+  background-color:solid gray !important;
+}
+.bg-light-blue{
+  background-color: #d5deff;
+  color: #2e5bff;
+}
+
+.bg-blue{
+  background-color: #2e5bff;
+  color: #d5deff;
+}
+
+.shipment-count{
+  width: 50%;
+}
+
+.card-padding{
+  padding: .5rem !important;
+}
+
+.table-heading{
+  color: #b3bdc4;
+}
+
